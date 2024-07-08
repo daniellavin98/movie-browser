@@ -13,6 +13,7 @@ const MovieView = () => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=fcd691440667343e3f086fe723a4f311`)
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             setMovieDetails(data)
             setIsLoading(false)
         })
@@ -26,10 +27,11 @@ const MovieView = () => {
         if(movieDetails){
 
             const posterPath = `https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`
+            const backdropPath = `https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`
 
             return (
                 <>
-                    <Hero text={movieDetails.original_title}/>
+                    <Hero text={movieDetails.original_title} backdrop={backdropPath}/>
                     <div className="container" my-5>
                         <div className="row">
                             <div className="col-md-3">
@@ -39,7 +41,19 @@ const MovieView = () => {
                             <div className="col-md-9">
                                 <h2>{movieDetails.original_title}</h2>
                                 <p className="lead">
+                                    <h3>Overview</h3>
                                     {movieDetails.overview}
+                                </p>
+                                <p className="lead">
+                                    <b>Release Date</b>: {movieDetails.release_date}
+                                    <br/>
+                                    <b>Runtime</b>: {movieDetails.runtime} mins
+                                    <br/>
+                                    <b>Budget</b>: ${movieDetails.budget}
+                                    <br/>
+                                    <b>Revenue</b>: ${movieDetails.revenue}
+                                    
+
                                 </p>
 
                             </div>
